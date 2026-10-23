@@ -5,7 +5,7 @@ db = SessionLocal()
 
 machines = [
 
-    # Armado de Válvulas
+    # Armado de Valvulas
     ("41", 2),
     ("139", 2),
     ("38", 2),
@@ -25,67 +25,74 @@ machines = [
     ("10", 4),
 
     # Estampado
-    ("57", 5),
-    ("61", 5),
+    ("57", 6),
+    ("61", 6),
 
-    # Colocación de Sleeve
-    ("69", 6),
-    ("71", 6),
-    ("119", 6),
+    # Colocacion de Sleeve
+    ("69", 7),
+    ("71", 7),
+    ("119", 7),
 
-    # Colocación de Arandelas
-    ("65", 7),
-    ("73", 7),
+    # Colocacion de Arandelas
+    ("65", 8),
+    ("73", 8),
 
     # Armado de Pulsadores Mach
-    ("66", 8),
-
-    # Vástagos Inyectados
-    ("20", 9),
-    ("8", 9),
-    ("19", 9),
-    ("16", 9),
-    ("4", 9),
+    ("66", 9),
 
     # Tapas Inyectadas
-    ("14", 10),
-    ("28", 10),
-    ("30", 10),
+    ("14", 11),
+    ("28", 11),
+    ("30", 11),
 
     # Domos Inyectados
-    ("84", 11),
-    ("87", 11),
-    ("89", 11),
-    ("83", 11),
+    ("84", 12),
+    ("87", 12),
+    ("89", 12),
+    ("83", 12),
 
-    # Extrusión
-    ("31", 12),
-    ("98", 12),
-    ("36", 12),
+    # Extrusion
+    ("31", 13),
+    ("98", 13),
+    ("36", 13),
 
     # Insertos Inyectados
-    ("3", 13),
-    ("13", 13),
+    ("3", 14),
+    ("13", 14),
 
     # Mach Inyectados
-    ("30", 14),
-    ("15", 14),
+    ("30", 15),
+    ("15", 15),
 
     # Armado de Kosmos
-    ("68", 15),
-    ("72", 15),
+    ("68", 16),
+    ("72", 16),
 
     # Armado de Pulsadores Labrador y Kosmos
-    ("78", 16),
+    ("78", 17),
+
+    # Vastagos Inyectados
+    ("20", 18),
+    ("8", 18),
+    ("19", 18),
+    ("16", 18),
+    ("4", 18),
 ]
 
 for numero, process_id in machines:
-    db.add(
-        Machine(
-            numero=numero,
-            process_id=process_id
+
+    existing = db.query(Machine).filter(
+        Machine.numero == numero,
+        Machine.process_id == process_id
+    ).first()
+
+    if not existing:
+        db.add(
+            Machine(
+                numero=numero,
+                process_id=process_id
+            )
         )
-    )
 
 db.commit()
 
