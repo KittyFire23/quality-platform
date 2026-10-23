@@ -7,6 +7,7 @@ from database.connection import engine
 from app.modules.employees.routes import router as employees_router
 from app.modules.machines.routes import router as machines_router
 from app.modules.templates.routes import router as templates_router
+from app.modules.questions.routes import router as questions_router
 
 app = FastAPI(
     title="Quality Platform",
@@ -43,6 +44,11 @@ app.include_router(
     templates_router,
     prefix="/templates",
     tags=["Templates"]
+)
+app.include_router(
+    questions_router,
+    prefix="/questions",
+    tags=["Questions"]
 )
 @app.get("/")
 def root():
